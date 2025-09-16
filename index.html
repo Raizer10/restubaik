@@ -1,29 +1,60 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selamat Datang Sahabat</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #000;
-        }
-        video {
-            width: 80%;
-            max-width: 800px;
-            border-radius: 10px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video dengan Suara</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #000;
+    }
+    video {
+      width: 80%;
+      max-width: 800px;
+      border-radius: 10px;
+    }
+    #unmuteBtn {
+      position: absolute;
+      bottom: 20px;
+      background: rgba(255,255,255,0.8);
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <video autoplay muted loop>
-        <source src="wer.mp4" type="video/mp4">
-        Browser Anda tidak mendukung pemutaran video.
-    </video>
+  <video id="myVideo" autoplay loop playsinline>
+    <source src="wer.mp4" type="video/mp4">
+    Browser Anda tidak mendukung pemutaran video.
+  </video>
+
+  <button id="unmuteBtn" style="display:none;">🔊 Nyalakan Suara</button>
+
+  <script>
+    const video = document.getElementById("myVideo");
+    const unmuteBtn = document.getElementById("unmuteBtn");
+
+    // coba play dengan suara
+    video.muted = false;
+    video.play().catch(() => {
+      // kalau gagal (diblock browser), tampilkan tombol
+      unmuteBtn.style.display = "block";
+    });
+
+    // kalau user klik tombol, paksa play dengan suara
+    unmuteBtn.addEventListener("click", () => {
+      video.muted = false;
+      video.play();
+      unmuteBtn.style.display = "none";
+    });
+  </script>
 </body>
 </html>
